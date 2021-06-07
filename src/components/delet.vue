@@ -1,15 +1,47 @@
 <template>
     <div>
+        
         <h2>Enter the id Number of row to delete</h2>
-        <form @submit.prevent="submitid">
+        <div>
+        <b-form @submit.prevent="submitid" method="POST" class="container">
+        <b-form-group id="rollnumber" 
+            label="Delete Student info" label-for="rollnumber" 
+            class="formgroup" label-align="left" >
+                <b-form-input id="droll" v-model="pk" placeholder="Enter Student roll Numebr" 
+                required></b-form-input>
+                <b-input-group-append>
+                <b-button class="formgroup" type="submit" variant="primary">Delete</b-button>
+                </b-input-group-append>
+                </b-form-group>
+                </b-form>
+
+                </div>
+        <!-- <form @submit.prevent="submitid">
             <input typ="text" placeholder="id NUmber" v-model="pk"/>
             <button type="submit">delete</button>
-        </form>
-        <form @submit.prevent="searchh">
+        </form> -->
+        <div class="position">
+         <b-form @submit.prevent="searchh" method="POST" class="container">
+        <b-form-group id="search" 
+            label="Search Student info" label-for="search" 
+             label-align="left" >
+                <b-form-input id="searchh" v-model="searchitem" placeholder="Search Student here" 
+                required></b-form-input>
+                <b-input-group-append>
+                <b-button class="formgroup" type="submit" variant="primary">Search</b-button>
+                </b-input-group-append>
+                </b-form-group>
+                </b-form>
+                </div>
+        <!-- <form @submit.prevent="searchh">
             <input typ="text" placeholder="search" v-model="searchitem"/>
             <button type="submit">search</button>
-        </form>
-        <button v-on:click="deletall">Delete all</button>
+        </form> -->
+        <h5 class="floatr">this will delete all registered students</h5>
+        <b-input-group-append>
+        <b-button variant="danger" v-on:click="deletall">Delete all</b-button>
+        </b-input-group-append>
+
         <table class="table table-bordered">
         <tr>
             <td>ID</td>
@@ -41,6 +73,8 @@
 import Vue from 'vue'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
+
+import {mapGetters} from 'vuex'
 Vue.use(VueAxios,axios)
 export default {
     
@@ -55,8 +89,13 @@ export default {
     },
     methods:{
         submitid(){
-            this.axios.delete('http://127.0.0.1:8000/delete/'+this.pk).then((res)=>{
-               console.warn(res) 
+            var axiosConfig = {
+        headers: {
+            'Authorization': 'Token ' + this.token
+            }
+        };
+            this.axios.delete('http://127.0.0.1:8000/delete/'+this.pk,axiosConfig).then((res)=>{
+               console.log(res) 
             })
         },
         searchh(){
@@ -64,14 +103,31 @@ export default {
             .then(resp=>{
              this.list=resp.data
              
-            console.warn(resp.data)
+            console.log(resp.data)
         })
     },
     deletall(){
-      this.axios.delete('http://127.0.0.1:8000').then((res)=>{
-               console.warn(res) 
+        var axiosConfig = {
+        headers: {
+            'Authorization': 'Token ' + this.token
+            }
+        };
+      this.axios.delete('http://127.0.0.1:8000',axiosConfig).then((res)=>{
+               console.log(res) 
             })  
-    }
+    },
+  computed:{
+    ...mapGetters(['token']),
+  }
 }
 }
 </script>
+<style scoped>
+.floatr{
+    padding-left: 8rem;
+    padding-right: 3rem;
+    float:left
+}
+
+
+</style>

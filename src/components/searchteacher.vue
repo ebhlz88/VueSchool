@@ -1,13 +1,14 @@
 <template>
   <div>
-    <h1 >student fee detail</h1>
+    <h1>Teacher payment detail</h1>
+    <!-- <b-button v-on:click="showfees" primary>Fee list</b-button> -->
     <div>
       <b-form method="GET" @submit.prevent="postnam" inline>
         Name (by id needed):
         <b-form-input
           id="name"
-          placeholder="Enter name"
-          v-model="nam"
+          placeholder="Enter Teacher's name"
+          v-model="tnam"
         ></b-form-input>
         <b-select
           split
@@ -15,7 +16,7 @@
           variant="primary"
           text="Select the year"
           class="m-2"
-          v-model="yerr"
+          v-model="tyear"
           >Select Year
           <b-select-option
             v-for="items in year"
@@ -32,12 +33,19 @@
         <label class="sr-only" for="inline-form-input-name"
           >Name of the student</label
         >
-        Roll No :
+         Roll Number :
+        <b-form-input
+          id="rollnumber"
+          class="mb-2 mr-sm-2 mb-sm-0"
+          placeholder="Enter Roll No."
+          v-model="pk"
+        ></b-form-input>
+        Name :
         <b-form-input
           id="updatename"
           class="mb-2 mr-sm-2 mb-sm-0"
-          placeholder="Enter Roll No."
-          v-model="updateroll"
+          placeholder="Enter name"
+          v-model="updatename"
         ></b-form-input>
         <b-select
           split
@@ -86,7 +94,7 @@
       </b-form>
     </div>
     <div>
-      <table v-if=showfees class="table table-bordered">
+      <table class="table table-bordered">
         <tr>
           <td>Year</td>
           <td>january</td>
@@ -132,19 +140,20 @@ export default {
   name: "fees",
   computed:{
     ...mapGetters(['token']),
-  
+    ...mapGetters(['isloggedin'])
   },
+
   data() {
     return {
       list: undefined,
       year: undefined,
-      nam: null,
-      showfees: false,
-      yerr: null,
+      tnam: null,
+      tyear: null,
       updateyear: null,
-      updateroll: null,
+      updatename: null,
       selectedmonth: null,
       updateamount: null,
+      pk:null,
       months: [
         { monthh: "january" },
         { monthh: "february" },
@@ -165,21 +174,18 @@ export default {
     Vue.axios.get("http://127.0.0.1:8000/year").then((resp) => {
       this.year = resp.data;
 
-      console.warn(resp.data);
+      console.log(resp.data);
     });
   },
   methods: {
-    show(){
-      
-    },
     postnam() {
-      this.showfees = !this.showfees
+      
       Vue.axios
-        .get("http://127.0.0.1:8000/months/" + this.nam )
+        .get("http://127.0.0.1:8000/tpayment/" + this.tnam + "/" + this.tyear)
         .then((resp) => {
           this.list = resp.data;
 
-          console.warn(resp.data);
+          console.log(resp.data);
         });
     },
     updatefees() {
@@ -188,13 +194,14 @@ export default {
             'Authorization': 'Token ' + this.token
             }
         };
-      
       axios
         .post(
-          "http://127.0.0.1:8000/paymonth/" +
-            this.updateroll +
+          "http://127.0.0.1:8000/tupdate/" +
+            this.updatename +
             "/" +
-            this.updateyear,
+            this.updateyear +
+            "/" +
+            this.pk,
           "{" +
             '"' +
             this.selectedmonth +
@@ -206,7 +213,7 @@ export default {
             "}",axiosConfig
         )
         .then((response) => {
-          console.warn(response);
+          console.log(response);
 
           // this.smessage="Succesfully added"
           this.$bvToast.toast("Fees Submitted", {
@@ -238,5 +245,4 @@ export default {
 .pad {
   margin-top: 10vh;
 }
-
 </style>

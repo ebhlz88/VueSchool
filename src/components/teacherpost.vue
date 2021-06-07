@@ -1,18 +1,18 @@
 <template>
-    <div >
-        <h2>Add a new Student</h2>
+    <div>
+        <h2>Add a new Teacher</h2>
         <b-form @submit.prevent="submitData" method="POST" class="container">
             <b-form-group id="sname" 
-            label="Student Name" label-for="sname" 
+            label="Teacher Name" label-for="tname" 
             class="formgroup" label-align="left" ></b-form-group>
-                <b-form-input id="sntxtbox" v-model="posts.s_name" placeholder="Enter Student name" class="input"
+                <b-form-input id="tntxtbox" v-model="posts.t_name" placeholder="Enter Teacher name" 
                 required></b-form-input>
-            <b-form-group id="sfname" label="Father's Name" label-for="sfname" label-align="left" class="formgroup"></b-form-group>
-                <b-form-input id="fntxtbox" v-model="posts.s_fname" placeholder="Enter Student's Father name"  class="input"
+            <b-form-group id="tfname" label="Father's Name" label-for="tfname" label-align="left" class="formgroup"></b-form-group>
+                <b-form-input id="fntxtbox" v-model="posts.t_fname" placeholder="Enter Teacher's Father name" 
                 required></b-form-input>
                 <b-form-group id="sex" label="Sex" label-for="sex" label-align="left" class="formgroup"></b-form-group>
               <b-form-radio-group
-                    class="floatr input"
+                    class="floatr"
                     v-model="posts.sex"
                     :options="sexoptions"
                     name="plain-stacked"
@@ -26,7 +26,6 @@
         id="example-input"
         v-model="posts.dob"
         type="text"
-         class="input"
         placeholder="YYYY-MM-DD"
         autocomplete="off"
       ></b-form-input>
@@ -34,7 +33,6 @@
         <b-form-datepicker
           v-model="posts.dob"
           locale="en-US"
-           class="input"
           aria-controls="example-input"
           button-only
           right
@@ -44,44 +42,47 @@
     </b-input-group>
             
             <b-form-group id="mobile" label="Student Contact Number" label-align="left" label-for="mobile" class="formgroup"></b-form-group>
-                <b-form-input id="mtxtbox" v-model="posts.m_number" placeholder="Enter Student's Contact Number"  class="input"
+                <b-form-input id="mtxtbox" v-model="posts.m_number" placeholder="Enter Student's Contact Number" 
                 ></b-form-input>
             
 
             <b-form-group id="fmobile" label="Father or guardian Mobile Number" label-align="left" label-for="fmobile" class="formgroup"></b-form-group>
-                <b-form-input id="fmobiletxtbox"  class="input" v-model="posts.fm_number" placeholder="Enter Father or Guardian mobile Number" 
+                <b-form-input id="fmobiletxtbox" v-model="posts.fm_number" placeholder="Enter Father or Guardian mobile Number" 
                 ></b-form-input>
             <b-form-group id="email" label="Student Email address" label-align="left" label-for="email" class="formgroup"></b-form-group>
-                <b-form-input id="emailtxtbox"  class="input" v-model="posts.s_email" placeholder="Enter Student's email address" 
+                <b-form-input id="emailtxtbox" v-model="posts.s_email" placeholder="Enter Student's email address" 
                 ></b-form-input>
             <b-form-group id="address" label="Student's address" label-align="left" label-for="address" class="formgroup"></b-form-group>
-                <b-form-input id="addresstxtbox"  class="input" v-model="posts.address" placeholder="Enter Student's address" 
+                <b-form-input id="addresstxtbox" v-model="posts.address" placeholder="Enter Student's address" 
                 ></b-form-input>
                 
                 <b-form-group id="doj" label="Date of Joining" label-align="left" 
                 label-for="doj" class="formgroup"
                 ></b-form-group>
                 <b-input-group class="mb-3">
-                <b-form-input type="text" id="dojtxt"  class="input" placeholder="DD-MM-YY" v-model="posts.date_join" 
+                <b-form-input type="text" id="dojtxt" placeholder="DD-MM-YY" v-model="posts.date_hiring" 
                 autocomplete="off">
                 </b-form-input>
             <b-input-group-append>
-                <b-form-datepicker v-model="posts.date_join" placeholder="Enter Students joining date" 
+                <b-form-datepicker v-model="posts.date_hiring" placeholder="Enter Teacher joining date" 
                 aria-controls="dojtxt" button-only right today-button reset-button 
                 close-button locale="en-US"
                 ></b-form-datepicker>
                 </b-input-group-append>
                 </b-input-group>
+            <b-form-group id="salary" label="Teacher Salary" label-align="left" label-for="salary" class="formgroup"></b-form-group>
+                <b-form-input id="salarytxt" v-model="posts.salary" placeholder="Enter Teacher Salary" 
+                ></b-form-input>
+            <b-form-group id="speciality" label="Teachers Speciality" label-align="left" label-for="speciality" class="formgroup"></b-form-group>
+                <b-form-input id="specialitytxt" v-model="posts.speciality" placeholder="Enter Teachers Speciality" 
+                ></b-form-input>
              <b-form-group id="c_position" label="Is currently enrolled" label-align="left" label-for="c_position" class="formgroup"></b-form-group>
                 <b-form-checkbox v-model="posts.c_position" name="enrolled"  switch>
                     Is enrolled
                 </b-form-checkbox>
                 <b-button class="formgroup" type="submit" variant="success">Add Student</b-button>
                     </b-form>
-                <!-- <button v-on:click="hh">button</button>
-
-                    {{this.token}} -->
-                    
+                    <p>{{posts.sex}}</p>
                    
                 
     </div>
@@ -90,23 +91,27 @@
 //import Vue from 'vue';
 //import VueAxios from 'vue-axios'
 import  axios from 'axios'
+
 import {mapGetters} from 'vuex'
 
 //Vue.use(VueAxios,axios)
 export default {
     name:'postcomp',
-  computed:{
+     computed:{
     ...mapGetters(['token']),
+    ...mapGetters(['isloggedin'])
   },
     data(){
         return{
             posts:{
-                s_name:null,
-                s_fname:null,
+                t_name:null,
+                t_fname:null,
                 dob:null,
                 m_number:null,
                 s_email:null,
-                date_join:null,
+                date_hiring:null,
+                salary:null,
+                speciality:null,
                 c_position:true,
                 address:null,
                 fm_number:null,
@@ -115,25 +120,20 @@ export default {
             sexoptions:[
                 {text:'Male', value:'True'},
                 {text:'Female', value:'False'}
-            ],
-            
+            ]
             
         }
     },
 methods:{
-    
     submitData(){
-        
-        //this.posts=qs.stringify(this.posts)
         var axiosConfig = {
         headers: {
             'Authorization': 'Token ' + this.token
             }
         };
-        axios.post('http://127.0.0.1:8000', this.posts,axiosConfig).then((response)=>{
+        //this.posts=qs.stringify(this.posts)
+        axios.post('http://127.0.0.1:8000/teacher', this.posts,axiosConfig).then((response)=>{
             console.log(response)
-            console.log(axiosConfig)
-            
             // this.smessage="Succesfully added"
             this.$bvToast.toast('Succesfully added',{title:'Succesful',
              variant: 'success',solid:true,toaster:'b-toaster-top-center',
@@ -147,11 +147,6 @@ methods:{
         //})
     
     },
-    
-    //  created() {
-    //     let token =TokenService.getToken();
-   
-    //     } 
 },
 
     
@@ -172,9 +167,5 @@ methods:{
 }
 .floatr{
     float:left
-}
-.input{
-    border-radius: 6rem;
-    height: 3rem;
 }
 </style>

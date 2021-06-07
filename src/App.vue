@@ -1,41 +1,96 @@
 <template>
-  <div id="app">
+  <div class="screenimage">
   <div>
   <!-- Image and text -->
-  <b-navbar variant="dark" type="dark">
-    <b-navbar-brand href="#" class="fixed">
-      <img src="./assets/dd.jpg" class="d-inline-block align-top imgsize" alt="school management"><br>
-      School Management
+  <b-navbar class="navcolor">
+    <b-navbar-brand href="/login" class="fixed">
+      <img src="./assets/qqq.png" class="d-inline-block align-top imgsize" alt="school management"><br>
+      <b>School Management</b>
     </b-navbar-brand>
-    
-  
-  
-  <b-nav  pills align="center">
-  <!-- <b-nav class="di" pills> -->
-    <b-collapse is-nav >
-    <b-nav-item to="/studentslist"  exact exact-active-class="active">Students List</b-nav-item>
-    <b-nav-item to="/post" exact exact-active-class="active">Add a Student</b-nav-item>
-    <b-nav-item to="/delet" exact exact-active-class="active">Delete</b-nav-item>
-    <b-nav-item to="/fees" exact exact-active-class="active">Fee detail</b-nav-item>
-    </b-collapse>
-  </b-nav>
+    <a href="/#/login" class="floatr" v-if="!isloggedin">Log in</a>
+    <button v-on:click="logout" v-if="isloggedin" class="floatr">Log out</button>
+      
   </b-navbar>
-</div>
-<router-view></router-view>
+    </div>
   
-  </div>
+  
+  <div class="di">
+  <b-nav >
+    
+    <b-nav-item v-if="isloggedin" to="/studentslist" exact-active-class="active">Students List</b-nav-item>
+    <b-nav-item v-if="isloggedin" to="/post" exact exact-active-class="active">Add a Student</b-nav-item>
+    <b-nav-item v-if="isloggedin"  to="/delet" exact exact-active-class="active">Delete</b-nav-item>
+    <b-nav-item v-if="isloggedin" to="/fees" exact exact-active-class="active">Fee detail</b-nav-item>
+    <b-nav-item v-if="isloggedin" to="/teacher" exact exact-active-class="active">Add teacher</b-nav-item>
+    <b-nav-item  to="/tsearch" exact exact-active-class="active">Teacher payment detail</b-nav-item>
+    <b-nav-item to="/calc" exact exact-active-class="active">per year analysis</b-nav-item>
+    <b-nav-item to="/result" exact exact-active-class="active">Students Result</b-nav-item>
+   
+  </b-nav>
+ </div>
+
+ 
+<div class="back">
+  
+<router-view class="routposition"></router-view>
+</div>
+<br/>
+<br/>
+<br/>
+</div>
+
 </template>
 
 <script>
+import Vue from 'vue'
+import VueAxios from 'vue-axios'
+import axios from 'axios'
 
+
+Vue.use(VueAxios,axios)
+
+
+import {mapGetters} from 'vuex'
 export default {
   name: 'App',
-  components: {
-    //HelloWorld,
-    //home
-    // studentslist
-  }
+  data(){
+    return{
+      initialv :false
+    }
+  },
+  methods:{
+    logout(){
+      var axiosConfig = {
+        headers: {
+            'Authorization': 'Token ' + this.token
+            }
+        };
+      axios.post('http://127.0.0.1:8000/logout',null,axiosConfig).then(()=>{
+            this.$store.dispatch('token',null)
+            this.$store.dispatch('isloggedin',false)
+            
+            // this.smessage="Succesfully added"
+            this.$bvToast.toast('Succesfully added',{title:'Succesful',
+             variant: 'success',solid:true,toaster:'b-toaster-top-center',
+            })
+
+        })
+        .catch((error) => console.log( error.response.request._response,
+        this.$bvToast.toast('Make sure all fields are filled or pass Null value',{title:' Failed to Add',
+             variant: 'danger',solid:true,toaster:'b-toaster-top-center',
+            }) ) );
+    },
+  },
+  computed:{
+    ...mapGetters(['token']),
+    ...mapGetters(['isloggedin'])
+  },
+  
+  
+  
+  
 }
+  
 </script>
 
 <style>
@@ -48,16 +103,38 @@ export default {
   
 }
  
-.link{
-  color: aliceblue;
- }
 .di{
   position: relative;
-  top: 10vh;
+  top: 5vh;
+  background-color: rgba(0, 0, 0, 0.6);
   
 }
 .imgsize{
-  height: 90px;
+  height: 50px;
+  align-self: initial;
+}
+.screenimage{
+  background-position-y: 8vh;
+  background-image: url("./assets/screenimage.jpg");
+  background-repeat: repeat-y;
+  background-size: 230vh;
+  
+}
+
+.navcolor{
+  background-color: #9D8CCC;
+  border-radius: 0.6rem;
+}
+.routposition{
+   position: relative;
+   top: 5vh;
+}
+.back{
+        min-height: 65vh;
+    }
+.floatr{
+  margin-left: auto;
+  color: rgb(0, 0, 0);
 }
 
 
