@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
       <button v-on:click="back" type="button" v-if="result" class="margintop btn btn-primary btn-lg btn-block container">Back</button>
       <div v-if="!result">
       <b-form @submit.prevent="postresult" inline>

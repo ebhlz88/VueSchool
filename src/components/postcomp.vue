@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div v-if="isloggedin">
         <h2>Add a new Student</h2>
         <b-form @submit.prevent="submitData" method="POST" class="container">
             <b-form-group id="sname" 
@@ -97,6 +97,7 @@ export default {
     name:'postcomp',
   computed:{
     ...mapGetters(['token']),
+    ...mapGetters(['isloggedin'])
   },
     data(){
         return{

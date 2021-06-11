@@ -1,5 +1,5 @@
 <template>
-<div>
+<div >
 <div>
     <b-form @submit.prevent="search" class="form-inline">
     <b-select

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="isloggedin">
         <h2>Add a new Teacher</h2>
         <b-form @submit.prevent="submitData" method="POST" class="container">
             <b-form-group id="sname" 

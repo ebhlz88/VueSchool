@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <h1 v-if="!list">Teacher payment detail</h1>
     <button v-on:click="back" type="button" v-if="list" class="btn btn-primary btn-lg btn-block container">Back</button>
     <!-- <b-button v-on:click="showfees" primary>Fee list</b-button> -->

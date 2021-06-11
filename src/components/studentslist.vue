@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="isloggedin">
     <div class="container margintop">
     <button v-on:click="generate" v-if="!list" type="button" class="btn btn-primary btn-lg btn-block">Generate Student List</button>
     <button v-on:click="back" type="button" v-if="list" class="btn btn-primary btn-lg btn-block">Back</button>
@@ -112,7 +112,7 @@ import Vue from 'vue'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
 
-
+import {mapGetters} from 'vuex'
 
 Vue.use(VueAxios,axios)
 
@@ -166,7 +166,10 @@ export default {
 back(){
     this.list = NaN
 }
-    }
+    },
+computed:{
+    ...mapGetters(['isloggedin'])
+  },
 }
 </script>
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isloggedin">
     <h1 v-if="!list">student fee detail</h1>
     <button v-on:click="back" type="button" v-if="list" class="btn btn-primary btn-lg btn-block container margintop">Back</button>
     
@@ -71,12 +71,11 @@
           </option>
         </b-select>
 
-        <label class="sr-only" for="inline-form-input-name"
+        <label  for="amount"
           >Amount submitted</label
         >
-        Amount submitted :
         <b-form-input
-          id="inline-form-input-name"
+          id="amount"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="Enter amount"
           v-model="updateamount"
@@ -136,6 +135,7 @@ export default {
   name: "fees",
   computed:{
     ...mapGetters(['token']),
+    ...mapGetters(['isloggedin'])
   
   },
   data() {
