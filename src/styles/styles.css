@@ -1,0 +1,35 @@
+.tablebottom {
+    background-color: rgb(0, 0, 0, 0.4);
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    position: relative;
+    top: 1rem;
+    width: 75rem;
+    height: auto;
+    margin: auto;
+  }
+  
+.textalign {
+    text-align: center;
+    color: white;
+    position: relative;
+    top: 1.5rem;
+  }
+  .tabletop {
+    background-color: #385743;
+    border-top-right-radius: 2rem;
+    border-top-left-radius: 2rem;
+    position: relative;
+    top: 1rem;
+    width: 75rem;
+    height: 5rem;
+  }
+  .textcolor {
+    color: rgb(250, 250, 250);
+  }
+  .height {
+    height: 4rem;
+  }
+  .outline {
+    border-color: bisque;
+  }
