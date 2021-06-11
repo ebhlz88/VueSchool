@@ -1,8 +1,9 @@
 <template>
   <div>
-    <h1>Teacher payment detail</h1>
+    <h1 v-if="!list">Teacher payment detail</h1>
+    <button v-on:click="back" type="button" v-if="list" class="btn btn-primary btn-lg btn-block container">Back</button>
     <!-- <b-button v-on:click="showfees" primary>Fee list</b-button> -->
-    <div>
+    <div v-if="!list">
       <b-form method="GET" @submit.prevent="postnam" inline>
         Name (by id needed):
         <b-form-input
@@ -28,19 +29,18 @@
         <b-button variant="primary" type="submit">Search</b-button>
       </b-form>
     </div>
-    <div>
+    <div v-if="!list">
       <b-form @submit.prevent="updatefees" inline>
-        <label class="sr-only" for="inline-form-input-name"
-          >Name of the student</label
+        <label  for="rollnumber"
+          >Roll No. </label
         >
-         Roll Number :
         <b-form-input
           id="rollnumber"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="Enter Roll No."
           v-model="pk"
         ></b-form-input>
-        Name :
+        <label for="update name">Name :</label>
         <b-form-input
           id="updatename"
           class="mb-2 mr-sm-2 mb-sm-0"
@@ -80,12 +80,11 @@
           </option>
         </b-select>
 
-        <label class="sr-only" for="inline-form-input-name"
+        <label  for="amount"
           >Amount submitted</label
         >
-        Amount submitted :
         <b-form-input
-          id="inline-form-input-name"
+          id="amount"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="Enter amount"
           v-model="updateamount"
@@ -93,7 +92,9 @@
         <b-button variant="primary" type="submit">submit</b-button>
       </b-form>
     </div>
-    <div>
+    <div v-if="list">
+      <div class="tabletop textalign"><h3>Teacher Payment Detail</h3> </div>
+      <div class="tablebottom">
       <table class="table table-bordered">
         <tr>
           <td>Year</td>
@@ -110,7 +111,7 @@
           <td>november</td>
           <td>december</td>
         </tr>
-        <tr v-for="item in list" v-bind:key="item.id">
+        <tr v-for="item in list" v-bind:key="item.id" class="height">
           <td>{{ item.years }}</td>
           <td>{{ item.january }}</td>
           <td>{{ item.february }}</td>
@@ -126,6 +127,7 @@
           <td>{{ item.december }}</td>
         </tr>
       </table>
+      </div>
     </div>
   </div>
 </template>
@@ -178,6 +180,9 @@ export default {
     });
   },
   methods: {
+    back(){
+    this.list = NaN
+},
     postnam() {
       
       Vue.axios
@@ -244,5 +249,44 @@ export default {
 <style scoped>
 .pad {
   margin-top: 10vh;
+}
+.tablebottom{
+    background-color: rgb(0, 0, 0,0.4);
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem ;
+    position: relative;
+    top: 1rem;
+    width: 75rem;
+    height: aucto;
+    margin: auto;
+}
+.textalign{
+    text-align: center  ;
+    color: white;
+    position: relative;
+    top: 1.5rem;
+}
+.tabletop{
+    background-color: #385743;
+    border-top-right-radius: 2rem;
+    border-top-left-radius: 2rem ;
+    position: relative;
+    top: 1rem;
+    width: 75rem;
+    height: 5rem;
+    align-self: center;
+    margin: auto;
+}
+.textcolor{
+    color: rgb(250, 250, 250)
+}
+.height{
+    height: 4rem;
+}
+.outline{
+    border-color: bisque;
+}
+.margintop{
+    margin-top: 2rem;
 }
 </style>

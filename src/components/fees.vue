@@ -1,9 +1,11 @@
 <template>
   <div>
-    <h1 >student fee detail</h1>
-    <div>
+    <h1 v-if="!list">student fee detail</h1>
+    <button v-on:click="back" type="button" v-if="list" class="btn btn-primary btn-lg btn-block container margintop">Back</button>
+    
+    <div v-if="!list">
       <b-form method="GET" @submit.prevent="postnam" inline>
-        Name (by id needed):
+        Name :
         <b-form-input
           id="name"
           placeholder="Enter name"
@@ -27,12 +29,9 @@
         <b-button variant="primary" type="submit">Search</b-button>
       </b-form>
     </div>
-    <div>
+    <div v-if="!list">
       <b-form @submit.prevent="updatefees" inline>
-        <label class="sr-only" for="inline-form-input-name"
-          >Name of the student</label
-        >
-        Roll No :
+        <label for="updatename">Roll No. </label>
         <b-form-input
           id="updatename"
           class="mb-2 mr-sm-2 mb-sm-0"
@@ -85,9 +84,12 @@
         <b-button variant="primary" type="submit">submit</b-button>
       </b-form>
     </div>
-    <div>
-      <table v-if=showfees class="table table-bordered">
-        <tr>
+    <div v-if="list">
+      <div class="tabletop textcolor textalign"><h3>Student fees</h3></div>
+      <div class="tablebottom">
+      <table class="table table-bordered textcolor">
+        <tr class="height">
+          <td>Roll No.</td>
           <td>Year</td>
           <td>january</td>
           <td>february</td>
@@ -102,7 +104,8 @@
           <td>november</td>
           <td>december</td>
         </tr>
-        <tr v-for="item in list" v-bind:key="item.id">
+        <tr v-for="item in list" v-bind:key="item.id" class="height">
+          <td>{{ item.student.rollnbr }}</td>
           <td>{{ item.years }}</td>
           <td>{{ item.january }}</td>
           <td>{{ item.february }}</td>
@@ -118,6 +121,7 @@
           <td>{{ item.december }}</td>
         </tr>
       </table>
+      </div>
     </div>
   </div>
 </template>
@@ -179,6 +183,9 @@ export default {
           console.warn(resp.data);
         });
     },
+    back(){
+    this.list = NaN
+},
     updatefees() {
       var axiosConfig = {
         headers: {
@@ -235,5 +242,43 @@ export default {
 .pad {
   margin-top: 10vh;
 }
-
+.tablebottom{
+    background-color: rgb(0, 0, 0,0.4);
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem ;
+    position: relative;
+    top: 1rem;
+    width: 75rem;
+    height: aucto;
+    margin: auto;
+}
+.textalign{
+    text-align: center  ;
+    color: white;
+    position: relative;
+    top: 1.5rem;
+}
+.tabletop{
+    background-color: #385743;
+    border-top-right-radius: 2rem;
+    border-top-left-radius: 2rem ;
+    position: relative;
+    top: 1rem;
+    width: 75rem;
+    height: 5rem;
+    align-self: center;
+    margin: auto;
+}
+.textcolor{
+    color: rgb(250, 250, 250)
+}
+.height{
+    height: 4rem;
+}
+.outline{
+    border-color: bisque;
+}
+.margintop{
+    margin-top: 2rem;
+}
 </style>

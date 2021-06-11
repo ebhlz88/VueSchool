@@ -1,8 +1,10 @@
 <template>
     <div>
-        <div>
+      <button v-on:click="back" type="button" v-if="result" class="margintop btn btn-primary btn-lg btn-block container">Back</button>
+      <div v-if="!result">
       <b-form @submit.prevent="postresult" inline>
-        Student Roll No. :
+        <label for="rollno">Student Roll No. :</label>
+        
         <b-form-input
           id="rollno"
           class="mb-2 mr-sm-2 mb-sm-0"
@@ -62,10 +64,10 @@
             {{ items.subjectname }}
           </b-select-option>
         </b-select>
-
-        Amount submitted :
+      <label for="amount">Amount submitted :</label>
+        
         <b-form-input
-          id="inline-form-input-name"
+          id="amount"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="Enter marks"
           v-model="marks"
@@ -74,7 +76,7 @@
       </b-form>
     </div>
     <!-- student result form -->
-    <div>
+    <div v-if="!result">
       <h2>Search Result here</h2>
       <b-form @submit.prevent="searchresult" inline>
         Student Roll No. :
@@ -88,7 +90,11 @@
       </b-form>
     </div>
     <!-- table for result showing -->
-    <div>
+    <div v-if="result"> 
+      <div class="tabletop textcolor textalign"><p>Student Name  : {{result[0].student.s_name}}</p>
+      <p>Fathers Name  : {{result[0].student.s_fname}}</p>
+      <p>Roll No.  {{result[0].student.rollnbr}}</p></div>
+      <div class="tablebottom">
       <table class="container textcolor">
         <tr class="height ">
             <td>Year</td>
@@ -97,14 +103,14 @@
             <td>Marks</td>
             
         </tr>
-        <tr v-for="item in result" v-bind:key="item.id">
+        <tr v-for="item in result" v-bind:key="item.id" class="height">
             <td>{{item.years}}</td>
             <td>{{item.standard.standardname}}</td>
             <td>{{item.subjectname.subjectname}}</td>
             <td>{{item.subjectmarks}}</td>
         </tr>
     </table>
-
+</div>  
     </div>
     </div>
 </template>
@@ -155,6 +161,9 @@ export default {
     });
   }, 
   methods:{
+    back(){
+    this.result = NaN
+},
     postresult(){
       var axiosConfig = {
         headers: {
@@ -214,6 +223,43 @@ export default {
 <style scoped>
 .pad {
   margin-top: 8vh;
+}
+.tablebottom{
+    background-color: rgb(0, 0, 0,0.4);
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem ;
+    position: relative;
+    
+    width: 75rem;
+    height: aucto;
+    margin: auto;
+}
+.textalign{
+    text-align: left  ;
+    padding-left: 2rem;
+}
+.tabletop{
+    background-color: #385743;
+    border-top-right-radius: 2rem;
+    border-top-left-radius: 2rem ;
+    position: relative;
+    top: 1rem;
+    width: 75rem;
+    height: auto;
+    align-self: center;
+    margin: auto;
+}
+.textcolor{
+    color: rgb(250, 250, 250)
+}
+.height{
+    height: 4rem;
+}
+.outline{
+    border-color: bisque;
+}
+.margintop{
+    margin-top: 2rem;
 }
 
 </style>

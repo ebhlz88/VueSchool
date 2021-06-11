@@ -1,5 +1,5 @@
 <template>
-  <div class="screenimage">
+  <div class="screenimage" id="app">
   <div>
   <!-- Image and text -->
   <b-navbar class="navcolor">
@@ -7,8 +7,8 @@
       <img src="./assets/qqq.png" class="d-inline-block align-top imgsize" alt="school management"><br>
       <b>School Management</b>
     </b-navbar-brand>
-    <a href="/#/login" class="floatr" v-if="!isloggedin">Log in</a>
-    <button v-on:click="logout" v-if="isloggedin" class="astext floatr">Log out</button>
+    <a href="/#/login" class="marginleft textcolor" v-if="!isloggedin">Log in</a>
+    <button v-on:click="logout" v-if="isloggedin" class="astext marginleft">Log out</button>
       
   </b-navbar>
     </div>
@@ -60,6 +60,7 @@ export default {
   methods:{
     logout(){
       this.$store.dispatch('isloggedin',false)
+      this.$router.push('/')
       var axiosConfig = {
         headers: {
             'Authorization': 'Token ' + this.token
@@ -129,7 +130,7 @@ export default {
         min-height: 65vh;
     }
 .floatr{
-  margin-left: auto;
+  float: right;
 }
 .astext {
     background:none;
@@ -138,6 +139,11 @@ export default {
     padding:0;
     cursor: pointer;
 }
-
+.textcolor{
+  color: black;
+}
+.marginleft{
+  margin-left: auto;
+}
 
 </style>
