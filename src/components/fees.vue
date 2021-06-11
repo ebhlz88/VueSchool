@@ -169,9 +169,6 @@ export default {
     });
   },
   methods: {
-    show(){
-      
-    },
     postnam() {
       this.showfees = !this.showfees
       Vue.axios

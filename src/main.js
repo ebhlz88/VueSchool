@@ -11,7 +11,6 @@ import calc from './components/calc.vue'
 import results from './components/results.vue'
 import login from './components/login.vue'
 
-import './plugins/echarts.js'
 
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'

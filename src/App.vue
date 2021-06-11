@@ -8,7 +8,7 @@
       <b>School Management</b>
     </b-navbar-brand>
     <a href="/#/login" class="floatr" v-if="!isloggedin">Log in</a>
-    <button v-on:click="logout" v-if="isloggedin" class="floatr">Log out</button>
+    <button v-on:click="logout" v-if="isloggedin" class="astext floatr">Log out</button>
       
   </b-navbar>
     </div>
@@ -55,11 +55,11 @@ export default {
   name: 'App',
   data(){
     return{
-      initialv :false
     }
   },
   methods:{
     logout(){
+      this.$store.dispatch('isloggedin',false)
       var axiosConfig = {
         headers: {
             'Authorization': 'Token ' + this.token
@@ -74,11 +74,7 @@ export default {
              variant: 'success',solid:true,toaster:'b-toaster-top-center',
             })
 
-        })
-        .catch((error) => console.log( error.response.request._response,
-        this.$bvToast.toast('Make sure all fields are filled or pass Null value',{title:' Failed to Add',
-             variant: 'danger',solid:true,toaster:'b-toaster-top-center',
-            }) ) );
+        });
     },
   },
   computed:{
@@ -134,7 +130,13 @@ export default {
     }
 .floatr{
   margin-left: auto;
-  color: rgb(0, 0, 0);
+}
+.astext {
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
 }
 
 

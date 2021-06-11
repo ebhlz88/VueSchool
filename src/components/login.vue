@@ -48,6 +48,7 @@ methods:{
             this.loggedin = true
             this.$store.dispatch('token',response.data.token)
             this.$store.dispatch('isloggedin',this.loggedin)
+            this.$router.push('/')
             // this.smessage="Succesfully added"
             this.$bvToast.toast('Succesfully added',{title:'Succesful',
              variant: 'success',solid:true,toaster:'b-toaster-top-center',
