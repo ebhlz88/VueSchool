@@ -1,14 +1,14 @@
 <template>
-    <div v-if="isloggedin">
+    <div v-if="isloggedin" class="width solid">
         <h2>Add a new Teacher</h2>
         <b-form @submit.prevent="submitData" method="POST" class="container">
             <b-form-group id="sname" 
             label="Teacher Name" label-for="tname" 
             class="formgroup" label-align="left" ></b-form-group>
-                <b-form-input id="tntxtbox" v-model="posts.t_name" placeholder="Enter Teacher name" 
+                <b-form-input id="tntxtbox" v-model="posts.t_name" placeholder="Enter Teacher name" class="input"
                 required></b-form-input>
-            <b-form-group id="tfname" label="Father's Name" label-for="tfname" label-align="left" class="formgroup"></b-form-group>
-                <b-form-input id="fntxtbox" v-model="posts.t_fname" placeholder="Enter Teacher's Father name" 
+            <b-form-group id="tfname" label="Father's Name" label-for="tfname" label-align="left" class="formgroup input"></b-form-group>
+                <b-form-input class="input" id="fntxtbox" v-model="posts.t_fname" placeholder="Enter Teacher's Father name" 
                 required></b-form-input>
                 <b-form-group id="sex" label="Sex" label-for="sex" label-align="left" class="formgroup"></b-form-group>
               <b-form-radio-group
@@ -23,6 +23,7 @@
                <b-input-group class="mb-3">
        
       <b-form-input
+      class="input"
         id="example-input"
         v-model="posts.dob"
         type="text"
@@ -42,25 +43,25 @@
     </b-input-group>
             
             <b-form-group id="mobile" label="Student Contact Number" label-align="left" label-for="mobile" class="formgroup"></b-form-group>
-                <b-form-input id="mtxtbox" v-model="posts.m_number" placeholder="Enter Student's Contact Number" 
+                <b-form-input id="mtxtbox" v-model="posts.m_number" placeholder="Enter Student's Contact Number" class="input"
                 ></b-form-input>
             
 
             <b-form-group id="fmobile" label="Father or guardian Mobile Number" label-align="left" label-for="fmobile" class="formgroup"></b-form-group>
-                <b-form-input id="fmobiletxtbox" v-model="posts.fm_number" placeholder="Enter Father or Guardian mobile Number" 
+                <b-form-input class="input" id="fmobiletxtbox" v-model="posts.fm_number" placeholder="Enter Father or Guardian mobile Number" 
                 ></b-form-input>
             <b-form-group id="email" label="Student Email address" label-align="left" label-for="email" class="formgroup"></b-form-group>
-                <b-form-input id="emailtxtbox" v-model="posts.s_email" placeholder="Enter Student's email address" 
+                <b-form-input class="input" id="emailtxtbox" v-model="posts.s_email" placeholder="Enter Student's email address" 
                 ></b-form-input>
             <b-form-group id="address" label="Student's address" label-align="left" label-for="address" class="formgroup"></b-form-group>
-                <b-form-input id="addresstxtbox" v-model="posts.address" placeholder="Enter Student's address" 
+                <b-form-input class="input" id="addresstxtbox" v-model="posts.address" placeholder="Enter Student's address" 
                 ></b-form-input>
                 
                 <b-form-group id="doj" label="Date of Joining" label-align="left" 
                 label-for="doj" class="formgroup"
                 ></b-form-group>
                 <b-input-group class="mb-3">
-                <b-form-input type="text" id="dojtxt" placeholder="DD-MM-YY" v-model="posts.date_hiring" 
+                <b-form-input class="input" type="text" id="dojtxt" placeholder="DD-MM-YY" v-model="posts.date_hiring" 
                 autocomplete="off">
                 </b-form-input>
             <b-input-group-append>
@@ -71,10 +72,10 @@
                 </b-input-group-append>
                 </b-input-group>
             <b-form-group id="salary" label="Teacher Salary" label-align="left" label-for="salary" class="formgroup"></b-form-group>
-                <b-form-input id="salarytxt" v-model="posts.salary" placeholder="Enter Teacher Salary" 
+                <b-form-input class="input" id="salarytxt" v-model="posts.salary" placeholder="Enter Teacher Salary" 
                 ></b-form-input>
             <b-form-group id="speciality" label="Teachers Speciality" label-align="left" label-for="speciality" class="formgroup"></b-form-group>
-                <b-form-input id="specialitytxt" v-model="posts.speciality" placeholder="Enter Teachers Speciality" 
+                <b-form-input class="input" id="specialitytxt" v-model="posts.speciality" placeholder="Enter Teachers Speciality" 
                 ></b-form-input>
              <b-form-group id="c_position" label="Is currently enrolled" label-align="left" label-for="c_position" class="formgroup"></b-form-group>
                 <b-form-checkbox v-model="posts.c_position" name="enrolled"  switch>
@@ -167,5 +168,17 @@ methods:{
 }
 .floatr{
     float:left
+}
+.width{
+    width: 45rem;
+    margin: auto;
+    
+}
+.solid {border-style: solid;
+border-radius: 3rem;
+padding: 2rem;}
+.input{
+    border-radius: 6rem;
+    height: 3rem;
 }
 </style>

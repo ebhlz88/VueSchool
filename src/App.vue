@@ -3,7 +3,7 @@
   <div>
   <!-- Image and text -->
   <b-navbar class="navcolor">
-    <b-navbar-brand href="/login" class="fixed">
+    <b-navbar-brand href="/#/login" class="fixed">
       <img src="./assets/qqq.png" class="d-inline-block align-top imgsize" alt="school management"><br>
       <b>School Management</b>
     </b-navbar-brand>
@@ -12,14 +12,13 @@
       
   </b-navbar>
     </div>
-  
+ 
   
   <div class="di">
-  <b-nav >
+  <b-nav tabs align="center" >
     
-    <b-nav-item v-if="isloggedin" to="/studentslist" exact-active-class="active">Students List</b-nav-item>
+    <b-nav-item class="textcolor" v-if="isloggedin" to="/studentslist" exact-active-class="active">Students List</b-nav-item>
     <b-nav-item v-if="isloggedin" to="/post" exact exact-active-class="active">Add a Student</b-nav-item>
-    <b-nav-item v-if="isloggedin"  to="/delet" exact exact-active-class="active">Delete</b-nav-item>
     <b-nav-item v-if="isloggedin" to="/fees" exact exact-active-class="active">Fee detail</b-nav-item>
     <b-nav-item v-if="isloggedin" to="/teacher" exact exact-active-class="active">Add teacher</b-nav-item>
     <b-nav-item  to="/tsearch" exact exact-active-class="active">Teacher payment detail</b-nav-item>
@@ -60,7 +59,7 @@ export default {
   methods:{
     logout(){
       this.$store.dispatch('isloggedin',false)
-      this.$router.push('/')
+      this.$router.push('/login')
       var axiosConfig = {
         headers: {
             'Authorization': 'Token ' + this.token
@@ -71,9 +70,6 @@ export default {
             this.$store.dispatch('isloggedin',false)
             
             // this.smessage="Succesfully added"
-            this.$bvToast.toast('Succesfully added',{title:'Succesful',
-             variant: 'success',solid:true,toaster:'b-toaster-top-center',
-            })
 
         });
     },
@@ -82,6 +78,9 @@ export default {
     ...mapGetters(['token']),
     ...mapGetters(['isloggedin'])
   },
+  created(){
+    this.logout()
+  }
   
   
   
@@ -103,7 +102,6 @@ export default {
 .di{
   position: relative;
   top: 5vh;
-  background-color: rgba(0, 0, 0, 0.6);
   
 }
 .imgsize{
@@ -145,5 +143,8 @@ export default {
 .marginleft{
   margin-left: auto;
 }
+.navbar{
+      color:black!important
+    }
 
 </style>

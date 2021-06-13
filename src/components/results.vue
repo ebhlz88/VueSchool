@@ -1,5 +1,6 @@
 <template>
-    <div >
+    <div class="container">
+      
       <button v-on:click="back" type="button" v-if="result" class="margintop btn btn-primary btn-lg btn-block container">Back</button>
       <div v-if="!result">
       <b-form @submit.prevent="postresult" inline>
@@ -64,6 +65,7 @@
             {{ items.subjectname }}
           </b-select-option>
         </b-select>
+       
       <label for="amount">Amount submitted :</label>
         
         <b-form-input

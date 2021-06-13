@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isloggedin">
+    <div v-if="isloggedin" class="width solid">
         <h2>Add a new Student</h2>
         <b-form @submit.prevent="submitData" method="POST" class="container">
             <b-form-group id="sname" 
@@ -178,4 +178,12 @@ methods:{
     border-radius: 6rem;
     height: 3rem;
 }
+.width{
+    width: 45rem;
+    margin: auto;
+    
+}
+.solid {border-style: solid;
+border-radius: 3rem;
+padding: 2rem;}
 </style>

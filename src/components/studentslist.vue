@@ -40,7 +40,7 @@
   <div class="tablebottom " v-if="list">
     <table class="container textcolor">
         <tr class="height ">
-            <td><b class="textcolor">ID</b></td>
+            <td><b class="textcolor">Roll No.</b></td>
             <td>Name</td>
             <td>Fathers Name</td>
             <td>Sex</td>
@@ -54,7 +54,7 @@
             
         </tr>
         <tr v-for="item in list" v-bind:key="item.id" class="height">
-            <td>{{item.id}}</td>
+            <td>{{item.rollnbr}}</td>
             <td>{{item.s_name}}</td>
             <td>{{item.s_fname}}</td>
             <td v-if="item.sex">Male</td>

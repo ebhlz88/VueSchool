@@ -9,7 +9,7 @@
                 required></b-form-input>
             <b-form-group id="pass" 
                 label="Password" label-for="pass" 
-                 label-align="left" ></b-form-group>
+                 label-align="left" class="margintop"></b-form-group>
                 <b-form-input id="passtxtbox" v-model="userinfo.password" placeholder="Enter Password here" type="password" class="mb-2 mr-sm-2 mb-sm-0"
                 required></b-form-input>
                 <b-button variant="primary" type="submit"  class="float">Login</b-button>
@@ -82,4 +82,7 @@ methods:{
         border-radius: 3rem;
         min-height: 50vh;
     }
+.margintop{
+    margin-top: 1rem;
+}
 </style>
