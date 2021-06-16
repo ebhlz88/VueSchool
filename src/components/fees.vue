@@ -1,9 +1,9 @@
 <template>
   <div v-if="isloggedin">
     <h1 v-if="!list">student fee detail</h1>
-    <button v-on:click="back" type="button" v-if="list" class="btn btn-primary btn-lg btn-block container margintop">Back</button>
+    <!-- <button v-on:click="back" type="button" v-if="list" class="btn btn-primary btn-lg btn-block container margintop">Back</button> -->
     
-    <div v-if="!list">
+    <!-- <div v-if="!list">
       <b-form method="GET" @submit.prevent="postnam" inline>
         Name :
         <b-form-input
@@ -28,16 +28,50 @@
         </b-select>
         <b-button variant="primary" type="submit">Search</b-button>
       </b-form>
+    </div> -->
+   
+    <div v-if="list">
+      <div class="tabletop textcolor textalign"><h3>Student fees</h3></div>
+      <div class="tablebottom">
+      <table class="table table-bordered textcolor">
+        <tr class="height">
+          <td>Roll No.</td>
+          <td>Year</td>
+          <td>january</td>
+          <td>february</td>
+          <td>march</td>
+          <td>april</td>
+          <td>may</td>
+          <td>june</td>
+          <td>july</td>
+          <td>august</td>
+          <td>september</td>
+          <td>october</td>
+          <td>november</td>
+          <td>december</td>
+        </tr>
+        <tr v-for="item in list" v-bind:key="item.id" class="height">
+          <td>{{ item.student.rollnbr }}</td>
+          <td>{{ item.years }}</td>
+          <td>{{ item.january }}</td>
+          <td>{{ item.february }}</td>
+          <td>{{ item.march }}</td>
+          <td>{{ item.april }}</td>
+          <td>{{ item.may }}</td>
+          <td>{{ item.june }}</td>
+          <td>{{ item.july }}</td>
+          <td>{{ item.august }}</td>
+          <td>{{ item.september }}</td>
+          <td>{{ item.october }}</td>
+          <td>{{ item.november }}</td>
+          <td>{{ item.december }}</td>
+        </tr>
+      </table>
+      </div>
     </div>
-    <div v-if="!list">
+
+   <div class="container">
       <b-form @submit.prevent="updatefees" inline>
-        <label for="updatename">Roll No. </label>
-        <b-form-input
-          id="updatename"
-          class="mb-2 mr-sm-2 mb-sm-0"
-          placeholder="Enter Roll No."
-          v-model="updateroll"
-        ></b-form-input>
         <b-select
           split
           split-variant="outline-primary"
@@ -83,45 +117,7 @@
         <b-button variant="primary" type="submit">submit</b-button>
       </b-form>
     </div>
-    <div v-if="list">
-      <div class="tabletop textcolor textalign"><h3>Student fees</h3></div>
-      <div class="tablebottom">
-      <table class="table table-bordered textcolor">
-        <tr class="height">
-          <td>Roll No.</td>
-          <td>Year</td>
-          <td>january</td>
-          <td>february</td>
-          <td>march</td>
-          <td>april</td>
-          <td>may</td>
-          <td>june</td>
-          <td>july</td>
-          <td>august</td>
-          <td>september</td>
-          <td>october</td>
-          <td>november</td>
-          <td>december</td>
-        </tr>
-        <tr v-for="item in list" v-bind:key="item.id" class="height">
-          <td>{{ item.student.rollnbr }}</td>
-          <td>{{ item.years }}</td>
-          <td>{{ item.january }}</td>
-          <td>{{ item.february }}</td>
-          <td>{{ item.march }}</td>
-          <td>{{ item.april }}</td>
-          <td>{{ item.may }}</td>
-          <td>{{ item.june }}</td>
-          <td>{{ item.july }}</td>
-          <td>{{ item.august }}</td>
-          <td>{{ item.september }}</td>
-          <td>{{ item.october }}</td>
-          <td>{{ item.november }}</td>
-          <td>{{ item.december }}</td>
-        </tr>
-      </table>
-      </div>
-    </div>
+
   </div>
 </template>
 <script>
@@ -146,7 +142,6 @@ export default {
       showfees: false,
       yerr: null,
       updateyear: null,
-      updateroll: null,
       selectedmonth: null,
       updateamount: null,
       months: [
@@ -165,27 +160,47 @@ export default {
       ],
     };
   },
+  props:{
+      roll:{
+            type:String,
+            default: NaN
+        },
+  },
   mounted() {
     Vue.axios.get("http://127.0.0.1:8000/year").then((resp) => {
       this.year = resp.data;
 
       console.warn(resp.data);
     });
+
+  this.getfees();
+
+  
   },
   methods: {
-    postnam() {
-      this.showfees = !this.showfees
-      Vue.axios
-        .get("http://127.0.0.1:8000/months/" + this.nam )
+
+    getfees(){
+       Vue.axios
+        .get("http://127.0.0.1:8000/months/" + this.roll )
         .then((resp) => {
           this.list = resp.data;
 
           console.warn(resp.data);
         });
     },
-    back(){
-    this.list = NaN
-},
+//     postnam() {
+//       this.showfees = !this.showfees
+//       Vue.axios
+//         .get("http://127.0.0.1:8000/months/" + this.nam )
+//         .then((resp) => {
+//           this.list = resp.data;
+
+//           console.warn(resp.data);
+//         });
+//     },
+//     back(){
+//     this.list = NaN
+// },
     updatefees() {
       var axiosConfig = {
         headers: {
@@ -196,7 +211,7 @@ export default {
       axios
         .post(
           "http://127.0.0.1:8000/paymonth/" +
-            this.updateroll +
+            this.roll +
             "/" +
             this.updateyear,
           "{" +
@@ -211,13 +226,14 @@ export default {
         )
         .then((response) => {
           console.warn(response);
-
           // this.smessage="Succesfully added"
+          this.getfees();
           this.$bvToast.toast("Fees Submitted", {
             title: "Succesful",
             variant: "success",
             solid: true,
             toaster: "b-toaster-top-center",
+            
           });
         })
         .catch((error) =>

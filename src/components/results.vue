@@ -1,17 +1,40 @@
 <template>
     <div class="container">
-      
-      <button v-on:click="back" type="button" v-if="result" class="margintop btn btn-primary btn-lg btn-block container">Back</button>
-      <div v-if="!result">
+
+      <div v-if="result"> 
+      <div class="tabletop textcolor textalign"><p>Student Name  : {{result[0].student.s_name}}</p>
+      <p>Fathers Name  : {{result[0].student.s_fname}}</p>
+      <p>Roll No.  {{result[0].student.rollnbr}}</p></div>
+      <div class="tablebottom">
+      <table class="container textcolor">
+        <tr class="height ">
+            <td>Year</td>
+            <td>Standard</td>
+            <td>Subject</td>
+            <td>Marks</td>
+            
+        </tr>
+        <tr v-for="item in result" v-bind:key="item.id" class="height">
+            <td>{{item.years}}</td>
+            <td>{{item.standard.standardname}}</td>
+            <td>{{item.subjectname.subjectname}}</td>
+            <td>{{item.subjectmarks}}</td>
+        </tr>
+    </table>
+</div>  
+    </div>
+
+
+      <div class="container">
       <b-form @submit.prevent="postresult" inline>
-        <label for="rollno">Student Roll No. :</label>
+        <!-- <label for="rollno">Student Roll No. :</label>
         
         <b-form-input
           id="rollno"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="Enter Student Roll No."
-          v-model="selectedroll"
-        ></b-form-input>
+          v-model="searchroll"
+        ></b-form-input> -->
         <b-select
           split
           split-variant="outline-primary"
@@ -92,28 +115,7 @@
       </b-form>
     </div>
     <!-- table for result showing -->
-    <div v-if="result"> 
-      <div class="tabletop textcolor textalign"><p>Student Name  : {{result[0].student.s_name}}</p>
-      <p>Fathers Name  : {{result[0].student.s_fname}}</p>
-      <p>Roll No.  {{result[0].student.rollnbr}}</p></div>
-      <div class="tablebottom">
-      <table class="container textcolor">
-        <tr class="height ">
-            <td>Year</td>
-            <td>Standard</td>
-            <td>Subject</td>
-            <td>Marks</td>
-            
-        </tr>
-        <tr v-for="item in result" v-bind:key="item.id" class="height">
-            <td>{{item.years}}</td>
-            <td>{{item.standard.standardname}}</td>
-            <td>{{item.subjectname.subjectname}}</td>
-            <td>{{item.subjectmarks}}</td>
-        </tr>
-    </table>
-</div>  
-    </div>
+    
     </div>
 </template>
 <script>
@@ -126,6 +128,12 @@ import {mapGetters} from 'vuex'
 Vue.use(VueAxios,axios)
 export default {
     name:"results",
+  props:{
+     searchroll:{
+            type:String,
+            default: NaN,
+        }
+  },
   computed:{
     ...mapGetters(['token']),
     ...mapGetters(['isloggedin'])
@@ -140,7 +148,6 @@ export default {
             selectedyear : null,
             marks : null,
             selectedroll :null,
-            searchroll: undefined,
             result : undefined,
 
         }
@@ -161,18 +168,23 @@ export default {
 
       console.log(resp.data);
     });
+    this.getresult();
   }, 
   methods:{
-    back(){
-    this.result = NaN
-},
+    getresult(){
+       Vue.axios.get("http://127.0.0.1:8000/result/" + this.searchroll ).then((resp) => {
+          this.result = resp.data;
+
+          console.warn(resp.data);
+        });
+    },
     postresult(){
       var axiosConfig = {
         headers: {
             'Authorization': 'Token ' + this.token
             }
         };
-      axios.post("http://127.0.0.1:8000/postresult/"+ this.selectedroll +
+      axios.post("http://127.0.0.1:8000/postresult/"+ this.searchroll +
             "/" +
             this.selectedyear +
             "/" +
@@ -188,7 +200,7 @@ export default {
             "}",axiosConfig
             ).then((response) => {
           console.warn(response);
-
+          this.getresult();
           // this.smessage="Succesfully added"
           this.$bvToast.toast("Fees Submitted", {
             title: "Succesful",
@@ -212,13 +224,6 @@ export default {
           )
         );
     },
-    searchresult(){
-      Vue.axios.get("http://127.0.0.1:8000/result/" + this.searchroll ).then((resp) => {
-          this.result = resp.data;
-
-          console.warn(resp.data);
-        });
-    }
   }
 }
 </script>

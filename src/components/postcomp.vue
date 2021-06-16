@@ -82,7 +82,7 @@
 
                     {{this.token}} -->
                     
-                   
+                {{name}}   
                 
     </div>
 </template>
@@ -95,6 +95,12 @@ import {mapGetters} from 'vuex'
 //Vue.use(VueAxios,axios)
 export default {
     name:'postcomp',
+    props:{
+        name:{
+            type:String,
+            default:'emad'
+        }
+    },
   computed:{
     ...mapGetters(['token']),
     ...mapGetters(['isloggedin'])
@@ -185,5 +191,6 @@ methods:{
 }
 .solid {border-style: solid;
 border-radius: 3rem;
-padding: 2rem;}
+padding: 2rem;
+background-color: rgba(240, 248, 255, 0.63);}
 </style>

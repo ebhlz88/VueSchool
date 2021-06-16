@@ -1,13 +1,9 @@
 <template>
     <div v-if="isloggedin">
-    <div class="container margintop">
-    <button v-on:click="generate" v-if="!list" type="button" class="btn btn-primary btn-lg btn-block">Generate Student List</button>
-    <button v-on:click="back" type="button" v-if="list" class="btn btn-primary btn-lg btn-block">Back</button>
-</div>
+    <!-- <div class="container margintop">
+</div> -->
 
-<b-button v-if="!list" type="button" class="btn btn-primary btn-lg btn-block container margintop" variant="danger" v-on:click="deletall">Delete all</b-button>
-
-<div class="container margintop" v-if="!list">
+<!-- <div class="container margintop" v-if="!list">
         <b-form @submit.prevent="submitid" method="POST" class="form-inline mx-sm-3 mb-2">
                 <label for="droll">Enter Roll No.</label>
                 <b-form-input id="droll" v-model="pk" class=" mx-sm-3 mb-2" placeholder="Enter Student roll Numebr" 
@@ -16,9 +12,9 @@
                 <b-button class="formgroup mb-2" type="submit" variant="primary">Delete</b-button>
                 </b-input-group-append>
                 </b-form>
-                </div>
+                </div> -->
 
-
+<!-- 
 <div class="container margintop" v-if="!list">
          <b-form @submit.prevent="searchh" method="POST" class="form-inline">
                 <label for="searchh">Search Student</label>
@@ -29,7 +25,7 @@
                 </b-input-group-append>
                 
                 </b-form>
-                </div>
+                </div> -->
 
 
 
@@ -102,8 +98,8 @@
             
         </tr>
     </table> -->
-    <!-- <button @submit="getData" method>Get Data</button> -->
-   
+    <!-- <bu=tton @submit="getData" method>Get Data</button> -->
+
     </div>
 </template>
 
@@ -121,52 +117,62 @@ export default {
     data(){
         return{
             list : undefined,
-            pk:null,
-            searchitem:null,
-            
+            pk:null, 
         }
     },
-    methods:{
-    generate(){
-         Vue.axios.get('http://127.0.0.1:8000/')
-         .then(resp=>{
-             this.list=resp.data
-             
-            console.log(resp.data)
-        })
+    props:{
+        searchitem:{
+            type:String,
+            default: ''
+        }
     },
-    submitid(){
-            var axiosConfig = {
-        headers: {
-            'Authorization': 'Token ' + this.token
-            }
-        };
-            this.axios.delete('http://127.0.0.1:8000/delete/'+this.pk,axiosConfig).then((res)=>{
-               console.log(res) 
-            })
-        },
-        searchh(){
+    mounted(){
         Vue.axios.get('http://127.0.0.1:8000/search/?search='+this.searchitem)
             .then(resp=>{
              this.list=resp.data
              
             console.log(resp.data)
         })
-    },
-    deletall(){
-        var axiosConfig = {
-        headers: {
-            'Authorization': 'Token ' + this.token
-            }
-        };
-      this.axios.delete('http://127.0.0.1:8000',axiosConfig).then((res)=>{
-               console.log(res) 
-            })  
-    },
-back(){
-    this.list = NaN
-}
-    },
+     Vue.axios.get('http://127.0.0.1:8000/')
+         .then(resp=>{
+             this.list=resp.data
+             
+            console.log(resp.data)
+        })
+     },
+//     methods:{
+//     submitid(){
+//             var axiosConfig = {
+//         headers: {
+//             'Authorization': 'Token ' + this.token
+//             }
+//         };
+//             this.axios.delete('http://127.0.0.1:8000/delete/'+this.pk,axiosConfig).then((res)=>{
+//                console.log(res) 
+//             })
+//         },
+//         searchh(){
+//         Vue.axios.get('http://127.0.0.1:8000/search/?search='+this.searchitem)
+//             .then(resp=>{
+//              this.list=resp.data
+             
+//             console.log(resp.data)
+//         })
+//     },
+//     deletall(){
+//         var axiosConfig = {
+//         headers: {
+//             'Authorization': 'Token ' + this.token
+//             }
+//         };
+//       this.axios.delete('http://127.0.0.1:8000',axiosConfig).then((res)=>{
+//                console.log(res) 
+//             })  
+//     },
+// back(){
+//     this.list = NaN
+// }
+//     },
 computed:{
     ...mapGetters(['isloggedin'])
   },

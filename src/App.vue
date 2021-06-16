@@ -16,14 +16,11 @@
   
   <div class="di">
   <b-nav tabs align="center" >
-    
-    <b-nav-item class="textcolor" v-if="isloggedin" to="/studentslist" exact-active-class="active">Students List</b-nav-item>
+    <b-nav-item class="textcolor" v-if="isloggedin" to="/" exact-active-class="active">Home</b-nav-item>
     <b-nav-item v-if="isloggedin" to="/post" exact exact-active-class="active">Add a Student</b-nav-item>
-    <b-nav-item v-if="isloggedin" to="/fees" exact exact-active-class="active">Fee detail</b-nav-item>
     <b-nav-item v-if="isloggedin" to="/teacher" exact exact-active-class="active">Add teacher</b-nav-item>
     <b-nav-item  to="/tsearch" exact exact-active-class="active">Teacher payment detail</b-nav-item>
     <b-nav-item to="/calc" exact exact-active-class="active">per year analysis</b-nav-item>
-    <b-nav-item to="/result" exact exact-active-class="active">Students Result</b-nav-item>
    
   </b-nav>
  </div>
@@ -52,10 +49,6 @@ Vue.use(VueAxios,axios)
 import {mapGetters} from 'vuex'
 export default {
   name: 'App',
-  data(){
-    return{
-    }
-  },
   methods:{
     logout(){
       this.$store.dispatch('isloggedin',false)
@@ -146,5 +139,7 @@ export default {
 .navbar{
       color:black!important
     }
+
+  
 
 </style>

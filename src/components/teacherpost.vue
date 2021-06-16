@@ -176,7 +176,9 @@ methods:{
 }
 .solid {border-style: solid;
 border-radius: 3rem;
-padding: 2rem;}
+padding: 2rem;
+background-color: rgba(240, 248, 255, 0.63);
+}
 .input{
     border-radius: 6rem;
     height: 3rem;

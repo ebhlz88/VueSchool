@@ -9,6 +9,7 @@ import searchteacher from './components/searchteacher.vue'
 import calc from './components/calc.vue'
 import results from './components/results.vue'
 import login from './components/login.vue'
+import home from './components/home.vue'
 
 
 
@@ -21,14 +22,16 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VueRouter);
 const routes=[
-  {path:'/studentslist',component:studentslist,},
+  {path:'/studentdetail/:searchitem',component:studentslist,props:true},
   {path:'/post',component:postcomp},
-  {path:"/fees",component:fees},
   {path:"/teacher",component:teacherpost},
   {path:"/tsearch",component:searchteacher},
   {path:"/calc",component:calc},
-  {path:"/result",component:results},
   {path:"/login",component:login},
+  {path:'/studentslist/:name',component:postcomp,props:true},
+  {path:"/",component:home},
+  {path:"/fee/:roll",component:fees,props:true},
+  {path:"/result/:searchroll",component:results,props:true},
  
 
 ]
