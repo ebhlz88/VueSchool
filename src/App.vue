@@ -14,8 +14,8 @@
     </div>
  
   
-  <div class="di">
-  <b-nav tabs align="center" >
+  <div class="di textcolor ">
+  <b-nav tabs align="center"  class="navbg">
     <b-nav-item class="textcolor" v-if="isloggedin" to="/" exact-active-class="active">Home</b-nav-item>
     <b-nav-item v-if="isloggedin" to="/post" exact exact-active-class="active">Add a Student</b-nav-item>
     <b-nav-item v-if="isloggedin" to="/teacher" exact exact-active-class="active">Add teacher</b-nav-item>
@@ -24,8 +24,18 @@
    
   </b-nav>
  </div>
+  
+  <!-- <div class="di">
+  <nav class="nav nav-tabs navbar-light">
+    <mdb-nav-item  v-if="isloggedin" to="/" exact-active-class="active textcolor">Home</mdb-nav-item>
+    <mdb-nav-item class="textcolor" v-if="isloggedin" to="/post" exact exact-active-class="active textcolor">Add a Student</mdb-nav-item>
+    <mdb-nav-item v-if="isloggedin" to="/teacher" exact exact-active-class="active">Add teacher</mdb-nav-item>
+    <mdb-nav-item  to="/tsearch" exact exact-active-class="active textcolor" >Teacher payment detail</mdb-nav-item>
+    <mdb-nav-item to="/calc" exact exact-active-class="active textcolor">per year analysis</mdb-nav-item>
 
- 
+  </nav>
+ </div> -->
+
 <div class="back">
   
 <router-view class="routposition"></router-view>
@@ -84,11 +94,11 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #ffffff;
   
 }
  
@@ -102,10 +112,9 @@ export default {
   align-self: initial;
 }
 .screenimage{
-  background-position-y: 8vh;
-  background-image: url("./assets/screenimage.jpg");
+  background-image: url("./assets/background.png");
   background-repeat: repeat-y;
-  background-size: 230vh;
+  background-size: 100rem;
   
 }
 
@@ -131,14 +140,17 @@ export default {
     cursor: pointer;
 }
 .textcolor{
-  color: black;
+  color: rgb(255, 255, 255);
 }
 .marginleft{
   margin-left: auto;
 }
-.navbar{
-      color:black!important
-    }
+.nav .active .navbar-light{
+  color: black;
+}
+.navbg{
+  background-color: rgba(174, 174, 175, 0.493);
+}
 
   
 

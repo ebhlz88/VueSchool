@@ -10,20 +10,19 @@
             <b-form-group id="sfname" label="Father's Name" label-for="sfname" label-align="left" class="formgroup"></b-form-group>
                 <b-form-input id="fntxtbox" v-model="posts.s_fname" placeholder="Enter Student's Father name"  class="input"
                 required></b-form-input>
+                <div>
                 <b-form-group id="sex" label="Sex" label-for="sex" label-align="left" class="formgroup"></b-form-group>
               <b-form-radio-group
                     class="floatr input"
                     v-model="posts.sex"
                     :options="sexoptions"
-                    name="plain-stacked"
-                    plain
-                ></b-form-radio-group><br>
-
-            <b-form-group id="dob" label="Date of Birth" label-for="dob" label-align="left" class="formgroup"></b-form-group>
-               <b-input-group class="mb-3">
-       
+                ></b-form-radio-group></div><br>
+            <div>
+            <!-- <b-form-group id="dob" label="Date of Birth" label-for="dob" label-align="left" class="formgroup"></b-form-group> -->
+        <label for="dob" class="marginright">Date of Birth</label>
+        <b-input-group class="mb-3">
       <b-form-input
-        id="example-input"
+        id="dob"
         v-model="posts.dob"
         type="text"
          class="input"
@@ -42,6 +41,7 @@
         ></b-form-datepicker>
       </b-input-group-append>
     </b-input-group>
+    </div>
             
             <b-form-group id="mobile" label="Student Contact Number" label-align="left" label-for="mobile" class="formgroup"></b-form-group>
                 <b-form-input id="mtxtbox" v-model="posts.m_number" placeholder="Enter Student's Contact Number"  class="input"
@@ -81,8 +81,7 @@
                 <!-- <button v-on:click="hh">button</button>
 
                     {{this.token}} -->
-                    
-                {{name}}   
+               
                 
     </div>
 </template>
@@ -189,8 +188,14 @@ methods:{
     margin: auto;
     
 }
-.solid {border-style: solid;
+.solid {
+    margin-top: 3vh;
+border-style: solid;
 border-radius: 3rem;
 padding: 2rem;
-background-color: rgba(240, 248, 255, 0.63);}
+background-color: rgba(39, 36, 36, 0.596);
+color: rgb(255, 255, 255);}
+.marginright{
+    margin-right: 80%;
+}
 </style>

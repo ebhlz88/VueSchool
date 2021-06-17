@@ -21,7 +21,7 @@
         <b-button variant="primary" type="submit">search</b-button>
     </b-form>
     </div>
- <div id="chart">
+ <div id="chart" class="chartdiv">
         <apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
       </div>
       
@@ -82,7 +82,7 @@ export default {
                 opacity: 0.2
               },
               toolbar: {
-                show: false
+                show: true
               }
             },
             colors: ['#77B6EA', '#545454'],
@@ -99,7 +99,7 @@ export default {
             grid: {
               borderColor: '#e7e7e7',
               row: {
-                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                colors: ['#000000', '#9c9c9c'], // takes an array which will be repeated on columns
                 opacity: 0.5
               },
             },
@@ -302,6 +302,11 @@ height: auto;
     position: absolute;
     left: 15rem;
 
+}
+.chartdiv{
+padding: 2rem;
+background-color: rgba(255, 255, 255, 0.877);
+color: black;
 }
 
 </style>

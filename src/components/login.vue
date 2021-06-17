@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="divsize">
+    <div class="divsize textcolor">
         <b-form @submit.prevent="logininfo" method="POST" class="container">
             <b-form-group id="user" 
             label="Student Name" label-for="user" 
@@ -84,5 +84,8 @@ methods:{
     }
 .margintop{
     margin-top: 1rem;
+}
+.textcolor{
+    color: black;
 }
 </style>

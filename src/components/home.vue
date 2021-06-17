@@ -21,7 +21,7 @@
   </div>
   <div class="tablebottom " v-if="list">
     <table class="container textcolor">
-        <tr class="height table-bordered">
+        <tr class="height">
             <td><b class="textcolor">Roll No.</b></td>
             <td>Name</td>
             <td>Fathers Name</td>
@@ -30,12 +30,12 @@
         
         <tr v-for="item in list" v-bind:key="item.id" class="height">
             <td>{{item.rollnbr}}</td>
-            <td><a :href="hrefstudentdetail+item.s_name">{{item.s_name}}</a></td>
+            <td><a class="color" :href="hrefstudentdetail+item.s_name">{{item.s_name}}</a></td>
             <td>{{item.s_fname}}</td>
             <td>{{item.m_number}}</td>
-            <td><a :href="hrefdata+item.rollnbr" >Fee Detail</a></td>
-            <td><a :href="hrefdata2+item.rollnbr" >Result</a></td>
-            <td><button class="astext" v-on:click="delet(item.rollnbr)" >Delete</button></td>
+            <td><a class="color" :href="hrefdata+item.rollnbr" >Fee Detail</a></td>
+            <td><a class="color" :href="hrefdata2+item.rollnbr" >Result</a></td>
+            <td><button class="astext textcolor color" v-on:click="delet(item.rollnbr)" >Delete</button></td>
             
             
         </tr>
@@ -125,15 +125,16 @@ computed:{
 }
 button:hover{
     text-decoration: underline;
+    color: rgb(0, 0, 0);
 }
 .tablebottom{
-    background-color: rgb(0, 0, 0,0.4);
+    background-color: rgba(255, 255, 255, 0.774);
     border-bottom-right-radius: 1rem;
     border-bottom-left-radius: 1rem ;
     position: relative;
     top: 1rem;
     width: 75rem;
-    height: aucto;
+    height: auto;
     margin: auto;
 }
 .textalign{
@@ -154,7 +155,7 @@ button:hover{
     margin: auto;
 }
 .textcolor{
-    color: rgb(250, 250, 250)
+    color: rgb(0, 0, 0)
 }
 .height{
     height: 4rem;
@@ -167,14 +168,17 @@ button:hover{
     margin-left: 7rem;
 }
 a{
-    color:aliceblue
+    color:rgb(0, 0, 0)
 }
 a:hover{
     text-decoration: underline;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 .formdiv{
    margin-left: 34rem;
+}
+.color{
+    color: rgba(1, 41, 202, 0.993);
 }
 
 </style>

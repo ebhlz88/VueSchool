@@ -16,7 +16,6 @@
                     v-model="posts.sex"
                     :options="sexoptions"
                     name="plain-stacked"
-                    plain
                 ></b-form-radio-group><br>
 
             <b-form-group id="dob" label="Date of Birth" label-for="dob" label-align="left" class="formgroup"></b-form-group>
@@ -174,11 +173,13 @@ methods:{
     margin: auto;
     
 }
-.solid {border-style: solid;
+.solid {
+    margin-top: 3vh;
+border-style: solid;
 border-radius: 3rem;
 padding: 2rem;
-background-color: rgba(240, 248, 255, 0.63);
-}
+background-color: rgba(39, 36, 36, 0.596);
+color: rgb(255, 255, 255);}
 .input{
     border-radius: 6rem;
     height: 3rem;
