@@ -1,6 +1,7 @@
 <template>
     <div>
-<div class="margintop form-inline">
+        <!-- <button v-on:click="teacherlist">teacherlist</button> -->
+<!-- <div class="margintop form-inline">
          <b-form @submit.prevent="searchh" method="POST" class="form-inline">
                 <label for="searchh">Search Student</label>
                 <b-form-input id="searchh" class=" mx-sm-3 mb-2" v-model="searchitem" placeholder="Search Student here" 
@@ -12,14 +13,14 @@
                 </b-form>
                 <div class="formdiv"><b-button type="button" variant="danger" v-on:click="deletall">Delete all</b-button></div>
                 </div>
-    
+     -->
 
                 
-<div v-if="list">
+<div >
 <div class="tabletop">
   <h2 class="textalign">Student list</h2>
   </div>
-  <div class="tablebottom " v-if="list">
+  <div class="tablebottom ">
     <table class="container textcolor">
         <tr class="height">
             <td><b class="textcolor">Roll No.</b></td>
@@ -29,22 +30,20 @@
         </tr>
         
         <tr v-for="item in list" v-bind:key="item.id" class="height">
-            <td>{{item.rollnbr}}</td>
-            <td><a class="color" :href="hrefstudentdetail+item.s_name">{{item.s_name}}</a></td>
-            <td>{{item.s_fname}}</td>
+            <td>{{item.id}}</td>
+            <td>{{item.t_name}}</td>
+            <td>{{item.t_fname}}</td>
             <td>{{item.m_number}}</td>
-            <td><a class="color" :href="hrefdata+item.rollnbr" >Fee Detail</a></td>
-            <td><a class="color" :href="hrefdata2+item.rollnbr" >Result</a></td>
-            <td><button class="astext textcolor color" v-on:click="delet(item.rollnbr)" >Delete</button></td>
+            <td><a :href="hrefdata+item.id">Paymnet Detail</a></td>
             
             
         </tr>
     </table> 
     </div> 
 </div>
-
-    </div>
+</div>
 </template>
+
 
 <script>
 import Vue from 'vue'
@@ -55,62 +54,29 @@ import axios from 'axios'
 import {mapGetters} from 'vuex'
 Vue.use(VueAxios,axios)
 export default {
-    name:'home',
+    name:'teacher',
     data(){
         return{
             list : undefined,
-            hrefdata : '/#/fee/',
-            hrefdata2 : '/#/result/',
-            hrefstudentdetail : '/#/studentdetail/',
-            searchitem : null,
+            hrefdata:"/#/tsearch/"
         
         }
     },
     mounted(){
-        Vue.axios.get('http://127.0.0.1:8000/')
-         .then(resp=>{
-             this.list=resp.data
-            
-            console.log(resp.data)
-        })
-    
+           Vue.axios.get("http://127.0.0.1:8000/teacher").then((resp) => {
+          this.list = resp.data;
+
+          console.warn(resp.data);
+        });
     },
-    methods:{
-        searchh(){
-            Vue.axios.get('http://127.0.0.1:8000/search/?search='+this.searchitem)
-            .then(resp=>{
-             this.list=resp.data
-             
-            console.log(resp.data)
-        })
-        },
-    deletall(){
-        var axiosConfig = {
-        headers: {
-            'Authorization': 'Token ' + this.token
-            }
-        };
-      this.axios.delete('http://127.0.0.1:8000',axiosConfig).then((res)=>{
-               console.log(res) 
-            })  
-    },
-    delet(it){
-         var axiosConfig = {
-        headers: {
-            'Authorization': 'Token ' + this.token
-            }
-        };
-            this.axios.delete('http://127.0.0.1:8000/delete/'+it,axiosConfig).then((res)=>{
-               console.log(res) 
-            })
-    }
-    },
-computed:{
+    computed:{
     ...mapGetters(['isloggedin']),
     ...mapGetters(['token'])
   },
 }
 </script>
+
+
 
 <style scoped>
 .astext {

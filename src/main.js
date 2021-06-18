@@ -11,6 +11,7 @@ import calc from './components/calc.vue'
 import results from './components/results.vue'
 import login from './components/login.vue'
 import home from './components/home.vue'
+import teacher from './components/teacher.vue'
 
 
 
@@ -28,13 +29,14 @@ const routes=[
   {path:'/studentdetail/:searchitem',component:studentslist,props:true},
   {path:'/post',component:postcomp},
   {path:"/teacher",component:teacherpost},
-  {path:"/tsearch",component:searchteacher},
+  {path:"/tsearch/:roll",component:searchteacher,props:true},
   {path:"/calc",component:calc},
   {path:"/login",component:login},
   {path:'/studentslist/:name',component:postcomp,props:true},
   {path:"/",component:home},
   {path:"/fee/:roll",component:fees,props:true},
   {path:"/result/:searchroll",component:results,props:true},
+  {path:"/teacherlist",component:teacher},
  
 
 ]

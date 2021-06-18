@@ -1,34 +1,8 @@
 <template>
     <div v-if="isloggedin">
-    <!-- <div class="container margintop">
-</div> -->
-
-<!-- <div class="container margintop" v-if="!list">
-        <b-form @submit.prevent="submitid" method="POST" class="form-inline mx-sm-3 mb-2">
-                <label for="droll">Enter Roll No.</label>
-                <b-form-input id="droll" v-model="pk" class=" mx-sm-3 mb-2" placeholder="Enter Student roll Numebr" 
-                required></b-form-input>
-                <b-input-group-append>
-                <b-button class="formgroup mb-2" type="submit" variant="primary">Delete</b-button>
-                </b-input-group-append>
-                </b-form>
-                </div> -->
-
-<!-- 
-<div class="container margintop" v-if="!list">
-         <b-form @submit.prevent="searchh" method="POST" class="form-inline">
-                <label for="searchh">Search Student</label>
-                <b-form-input id="searchh" class=" mx-sm-3 mb-2" v-model="searchitem" placeholder="Search Student here" 
-                required></b-form-input>
-                <b-input-group-append>
-                <b-button class="formgroup mb-2" type="submit" variant="primary">Search</b-button>
-                </b-input-group-append>
-                
-                </b-form>
-                </div> -->
-
-
-
+<div>
+  <b-button v-on:click="backhome" class="container margintop" block variant="primary">Back to Home</b-button>
+</div>
 <div v-if="list">
 <div class="tabletop">
   <h2 class="textalign">Student list</h2>
@@ -67,38 +41,6 @@
     </table> 
     </div> 
 </div>
-    <!-- <table class="table table-bordered">
-        <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Fathers Name</td>
-            <td>Sex</td>
-            <td>Mobile Number</td>
-            <td>Father's Number</td>
-            <td>DoB</td>
-            <td>Email</td>
-            <td>Address</td>
-            <td>D of Joining</td>
-            <td>current position</td>
-            
-        </tr>
-        <tr v-for="item in list" v-bind:key="item.id">
-            <td>{{item.id}}</td>
-            <td>{{item.s_name}}</td>
-            <td>{{item.s_fname}}</td>
-            <td v-if="item.sex">Male</td>
-            <td v-else>Female</td>
-            <td>{{item.m_number}}</td>
-            <td>{{item.fm_number}}</td>
-            <td>{{item.dob}}</td>
-            <td>{{item.s_email}}</td>
-            <td>{{item.address}}</td>
-            <td>{{item.date_join}}</td>
-            <td>{{item.c_position}}</td>
-            
-        </tr>
-    </table> -->
-    <!-- <bu=tton @submit="getData" method>Get Data</button> -->
 
     </div>
 </template>
@@ -140,39 +82,11 @@ export default {
             console.log(resp.data)
         })
      },
-//     methods:{
-//     submitid(){
-//             var axiosConfig = {
-//         headers: {
-//             'Authorization': 'Token ' + this.token
-//             }
-//         };
-//             this.axios.delete('http://127.0.0.1:8000/delete/'+this.pk,axiosConfig).then((res)=>{
-//                console.log(res) 
-//             })
-//         },
-//         searchh(){
-//         Vue.axios.get('http://127.0.0.1:8000/search/?search='+this.searchitem)
-//             .then(resp=>{
-//              this.list=resp.data
-             
-//             console.log(resp.data)
-//         })
-//     },
-//     deletall(){
-//         var axiosConfig = {
-//         headers: {
-//             'Authorization': 'Token ' + this.token
-//             }
-//         };
-//       this.axios.delete('http://127.0.0.1:8000',axiosConfig).then((res)=>{
-//                console.log(res) 
-//             })  
-//     },
-// back(){
-//     this.list = NaN
-// }
-//     },
+    methods:{
+        backhome(){
+            this.$router.push('/')
+        },
+    },
 computed:{
     ...mapGetters(['isloggedin'])
   },

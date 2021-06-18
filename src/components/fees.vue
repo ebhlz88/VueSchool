@@ -1,5 +1,6 @@
 <template>
   <div v-if="isloggedin">
+     <b-button v-on:click="backhome" class="container margintop" block variant="primary">Back to Home</b-button>
     <h1 v-if="!list">student fee detail</h1>
     <!-- <button v-on:click="back" type="button" v-if="list" class="btn btn-primary btn-lg btn-block container margintop">Back</button> -->
     
@@ -178,6 +179,9 @@ export default {
   
   },
   methods: {
+    backhome(){
+            this.$router.push('/')
+        },
 
     getfees(){
        Vue.axios

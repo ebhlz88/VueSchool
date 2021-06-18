@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-
+       <b-button v-on:click="backhome" class="container margintop" block variant="primary">Back to Home</b-button>
       <div v-if="result"> 
       <div class="tabletop textcolor textalign"><p>Student Name  : {{result[0].student.s_name}}</p>
       <p>Fathers Name  : {{result[0].student.s_fname}}</p>
@@ -101,7 +101,7 @@
       </b-form>
     </div>
     <!-- student result form -->
-    <div v-if="!result">
+    <!-- <div v-if="!result">
       <h2>Search Result here</h2>
       <b-form @submit.prevent="searchresult" inline>
         Student Roll No. :
@@ -113,7 +113,7 @@
         ></b-form-input>
         <b-button variant="primary" type="submit">Search</b-button>
       </b-form>
-    </div>
+    </div> -->
     <!-- table for result showing -->
     
     </div>
@@ -171,6 +171,9 @@ export default {
     this.getresult();
   }, 
   methods:{
+    backhome(){
+            this.$router.push('/')
+        },
     getresult(){
        Vue.axios.get("http://127.0.0.1:8000/result/" + this.searchroll ).then((resp) => {
           this.result = resp.data;
