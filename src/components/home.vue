@@ -1,5 +1,6 @@
 <template>
     <div>
+        <vue-confirm-dialog></vue-confirm-dialog>
 <div class="margintop form-inline">
          <b-form @submit.prevent="searchh" method="POST" class="form-inline">
                 <label for="searchh">Search Student</label>
@@ -67,15 +68,18 @@ export default {
         }
     },
     mounted(){
-        Vue.axios.get('http://127.0.0.1:8000/')
+       this.getstudentlist();
+    
+    },
+    methods:{
+        getstudentlist(){
+             Vue.axios.get('http://127.0.0.1:8000/')
          .then(resp=>{
              this.list=resp.data
             
             console.log(resp.data)
         })
-    
-    },
-    methods:{
+        },
         searchh(){
             Vue.axios.get('http://127.0.0.1:8000/search/?search='+this.searchitem)
             .then(resp=>{
@@ -84,25 +88,88 @@ export default {
             console.log(resp.data)
         })
         },
-    deletall(){
-        var axiosConfig = {
+//     deletall(){
+//         var axiosConfig = {
+//         headers: {
+//             'Authorization': 'Token ' + this.token
+//             }
+//         };
+//    this.axios.delete('http://127.0.0.1:8000',axiosConfig).then((res)=>{
+//                console.log(res) 
+//             }) 
+
+     
+//     },
+
+deletall(){
+      this.$confirm(
+        {
+          title: 'Confirm',
+          message: `Are you sure you want to delete?`,
+          button: {
+            no: 'No',
+            yes: 'Yes'
+          },
+          /**
+          * Callback Function
+          * @param {Boolean} confirm 
+          */
+          callback: confirm => {
+            if (confirm) {
+                      var axiosConfig = {
         headers: {
             'Authorization': 'Token ' + this.token
             }
         };
-      this.axios.delete('http://127.0.0.1:8000',axiosConfig).then((res)=>{
+   this.axios.delete('http://127.0.0.1:8000',axiosConfig).then((res)=>{
                console.log(res) 
-            })  
+               this.getstudentlist();
+            }) 
+            }
+          }
+        }
+      )
     },
+
+
     delet(it){
-         var axiosConfig = {
+        //  var axiosConfig = {
+        // headers: {
+        //     'Authorization': 'Token ' + this.token
+        //     }
+        // };
+        //     this.axios.delete('http://127.0.0.1:8000/delete/'+it,axiosConfig).then((res)=>{
+        //        console.log(res) 
+        //     })
+
+     this.$confirm(
+        {
+          title: 'Confirm',
+          message: `Are you sure you want to delete?`,
+          button: {
+            no: 'No',
+            yes: 'Yes'
+          },
+          /**
+          * Callback Function
+          * @param {Boolean} confirm 
+          */
+          callback: confirm => {
+            if (confirm) {
+             var axiosConfig = {
         headers: {
             'Authorization': 'Token ' + this.token
             }
         };
             this.axios.delete('http://127.0.0.1:8000/delete/'+it,axiosConfig).then((res)=>{
                console.log(res) 
+               this.getstudentlist();
             })
+            }
+          }
+        }
+      )
+
     }
     },
 computed:{

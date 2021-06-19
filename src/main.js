@@ -14,6 +14,11 @@ import home from './components/home.vue'
 import teacher from './components/teacher.vue'
 
 
+import VueConfirmDialog from 'vue-confirm-dialog'
+ 
+Vue.use(VueConfirmDialog)
+Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
+
 
 
 

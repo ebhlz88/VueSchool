@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isloggedin" class="width solid">
+    <div v-if="isloggedin" class="width solid scroll">
         <h2>Add a new Student</h2>
         <b-form @submit.prevent="submitData" method="POST" class="container">
             <b-form-group id="sname" 
@@ -191,11 +191,16 @@ methods:{
 .solid {
     margin-top: 3vh;
 border-style: solid;
-border-radius: 3rem;
+border-radius: 3rem 0rem 0rem 3rem;
 padding: 2rem;
 background-color: rgba(39, 36, 36, 0.596);
 color: rgb(255, 255, 255);}
 .marginright{
     margin-right: 80%;
+}
+.scroll {
+    height:550px;
+    overflow-x:auto;
+
 }
 </style>

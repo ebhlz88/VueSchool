@@ -1,5 +1,6 @@
 <template>
     <div>
+        <vue-confirm-dialog></vue-confirm-dialog>
         <!-- <button v-on:click="teacherlist">teacherlist</button> -->
 <!-- <div class="margintop form-inline">
          <b-form @submit.prevent="searchh" method="POST" class="form-inline">
@@ -15,12 +16,24 @@
                 </div>
      -->
 
+   <div class="margintop form-inline">
+         <b-form @submit.prevent="searchh" method="POST" class="form-inline">
+                <label for="searchh">Search Student</label>
+                <b-form-input id="searchh" class=" mx-sm-3 mb-2" v-model="searchitem" placeholder="Search Student here" 
+                required></b-form-input>
+                <b-input-group-append>
+                <b-button class="formgroup mb-2" type="submit" variant="primary">Search</b-button>
+                </b-input-group-append>
                 
+                </b-form>
+                <div class="formdiv"><b-button type="button" variant="danger" v-on:click="deletall">Delete all</b-button></div>
+                </div>             
 <div >
 <div class="tabletop">
-  <h2 class="textalign">Student list</h2>
+  <h2 v-if="list" class="textalign">Student list</h2>
+
   </div>
-  <div class="tablebottom ">
+  <div class="tablebottom " v-if="list">
     <table class="container textcolor">
         <tr class="height">
             <td><b class="textcolor">Roll No.</b></td>
@@ -35,6 +48,7 @@
             <td>{{item.t_fname}}</td>
             <td>{{item.m_number}}</td>
             <td><a :href="hrefdata+item.id">Paymnet Detail</a></td>
+            <td><button class="astext" v-on:click="delet(item.id)">Delete</button></td>
             
             
         </tr>
@@ -58,21 +72,99 @@ export default {
     data(){
         return{
             list : undefined,
-            hrefdata:"/#/tsearch/"
+            hrefdata:"/#/tsearch/",
+            searchitem: null
         
         }
     },
     mounted(){
-           Vue.axios.get("http://127.0.0.1:8000/teacher").then((resp) => {
-          this.list = resp.data;
-
-          console.warn(resp.data);
-        });
+           this.getteachers();
     },
     computed:{
     ...mapGetters(['isloggedin']),
     ...mapGetters(['token'])
   },
+  methods:{
+      getteachers(){
+          Vue.axios.get("http://127.0.0.1:8000/teacher").then((resp) => {
+          this.list = resp.data;
+
+          console.warn(resp.data);
+        });
+      },
+      searchh(){
+          Vue.axios.get('http://127.0.0.1:8000/searchteacher/?search='+this.searchitem)
+            .then(resp=>{
+             this.list=resp.data
+             
+            console.log(resp.data)
+        })
+      },
+deletall(){
+      this.$confirm(
+        {
+          title: 'Confirm',
+          message: `Are you sure you want to delete?`,
+          button: {
+            no: 'No',
+            yes: 'Yes'
+          },
+          /**
+          * Callback Function
+          * @param {Boolean} confirm 
+          */
+          callback: confirm => {
+            if (confirm) {
+                     var axiosConfig = {
+        headers: {
+            'Authorization': 'Token ' + this.token
+            }
+        };
+        axios.delete("http://127.0.0.1:8000/teacher",axiosConfig).then((resp) => {
+          this.list = resp.data;
+
+          console.warn(resp.data);
+          this.getteachers();
+        });
+            }
+          }
+        }
+      )
+    },
+delet(deletid){
+
+    this.$confirm(
+        {
+          title: 'Confirm',
+          message: `Are you sure you want to delete?`,
+          button: {
+            no: 'No',
+            yes: 'Yes'
+          },
+          /**
+          * Callback Function
+          * @param {Boolean} confirm 
+          */
+          callback: confirm => {
+            if (confirm) {
+            var axiosConfig = {
+            headers: {
+                'Authorization': 'Token ' + this.token
+            }
+        };
+        axios.delete("http://127.0.0.1:8000/teacherdelete/"+deletid,axiosConfig).then((resp) => {
+          this.list = resp.data;
+
+          console.warn(resp.data);
+        });
+        this.getteachers();
+            }
+          }
+        }
+      )
+     
+}
+  }
 }
 </script>
 
@@ -85,11 +177,11 @@ export default {
     margin:0;
     padding:0;
     cursor: pointer;
-    color: aliceblue;
+    color: rgb(0, 131, 245);
 }
 button:hover{
     text-decoration: underline;
-    color: rgb(107, 104, 104);
+    color: rgb(15, 15, 15);
 }
 .tablebottom{
     background-color: rgba(255, 255, 255, 0.774);
@@ -132,11 +224,11 @@ button:hover{
     margin-left: 7rem;
 }
 a{
-    color:rgb(0, 0, 0)
+    color:rgb(18, 14, 252)
 }
 a:hover{
     text-decoration: underline;
-    color: rgb(107, 104, 104);
+    color: rgb(0, 0, 0);
 }
 .formdiv{
    margin-left: 34rem;

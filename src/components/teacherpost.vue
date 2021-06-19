@@ -1,5 +1,6 @@
 <template>
     <div v-if="isloggedin" class="width solid">
+        <div class="scroll">
         <h2>Add a new Teacher</h2>
         <b-form @submit.prevent="submitData" method="POST" class="container">
             <b-form-group id="sname" 
@@ -82,9 +83,8 @@
                 </b-form-checkbox>
                 <b-button class="formgroup" type="submit" variant="success">Add Student</b-button>
                     </b-form>
-                    <p>{{posts.sex}}</p>
                    
-                
+             </div>   
     </div>
 </template>
 <script>
@@ -183,5 +183,10 @@ color: rgb(255, 255, 255);}
 .input{
     border-radius: 6rem;
     height: 3rem;
+}
+.scroll {
+    margin: auto;
+    overflow-x:auto;
+
 }
 </style>

@@ -19,9 +19,8 @@
     <b-nav-item class="textcolor" v-if="isloggedin" to="/" exact-active-class="active">Home</b-nav-item>
     <b-nav-item v-if="isloggedin" to="/post" exact exact-active-class="active">Add a Student</b-nav-item>
     <b-nav-item v-if="isloggedin" to="/teacher" exact exact-active-class="active">Add teacher</b-nav-item>
-    <b-nav-item  to="/tsearch" exact exact-active-class="active">Teacher payment detail</b-nav-item>
-    <b-nav-item to="/calc" exact exact-active-class="active">per year analysis</b-nav-item>
-    <b-nav-item to="/teacherlist" exact exact-active-class="active">Teacher List</b-nav-item>
+    <b-nav-item v-if="isloggedin" to="/teacherlist" exact exact-active-class="active">Teacher List</b-nav-item>
+    <b-nav-item v-if="isloggedin" to="/calc" exact exact-active-class="active">per year analysis</b-nav-item>
    
   </b-nav>
  </div>
@@ -85,10 +84,6 @@ export default {
   created(){
     this.logout()
   }
-  
-  
-  
-  
 }
   
 </script>
@@ -152,6 +147,7 @@ export default {
 .navbg{
   background-color: rgba(174, 174, 175, 0.493);
 }
+
 
   
 

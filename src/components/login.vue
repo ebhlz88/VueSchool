@@ -3,9 +3,9 @@
     <div class="divsize textcolor">
         <b-form @submit.prevent="logininfo" method="POST" class="container">
             <b-form-group id="user" 
-            label="Student Name" label-for="user" 
+            label="Username" label-for="user" 
             class="formgroup" label-align="left" ></b-form-group>
-                <b-form-input id="usertxtbox" v-model="userinfo.username" placeholder="Enter Student name" class="mb-2 mr-sm-2 mb-sm-0"
+                <b-form-input id="usertxtbox" v-model="userinfo.username" placeholder="Enter Username" class="mb-2 mr-sm-2 mb-sm-0"
                 required></b-form-input>
             <b-form-group id="pass" 
                 label="Password" label-for="pass" 

@@ -165,7 +165,12 @@ export default {
 
       console.log(resp.data);
     });
-   Vue.axios
+    this.getpayments();
+  
+  },
+  methods: {
+  getpayments(){
+     Vue.axios
         .get("http://127.0.0.1:8000/tpayment/" + this.roll)
         .then((resp) => {
           this.list = resp.data;
@@ -173,7 +178,6 @@ export default {
           console.log(resp.data);
         });
   },
-  methods: {
     back(){
     this.$router.push('/teacherlist')
 },
@@ -201,7 +205,7 @@ export default {
         )
         .then((response) => {
           console.log(response);
-
+          this.getpayments();
           // this.smessage="Succesfully added"
           this.$bvToast.toast("Fees Submitted", {
             title: "Succesful",
