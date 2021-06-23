@@ -14,8 +14,9 @@
     </div>
  
   
-  <div class="di textcolor ">
-  <b-nav tabs align="center"  class="navbg">
+  <div class="di textcolor navbg" :style="{position : positiondata,top : topdata}">
+   
+  <b-nav tabs align="center">
     <b-nav-item class="textcolor" v-if="isloggedin" to="/" exact-active-class="active">Home</b-nav-item>
     <b-nav-item v-if="isloggedin" to="/post" exact exact-active-class="active">Add a Student</b-nav-item>
     <b-nav-item v-if="isloggedin" to="/teacher" exact exact-active-class="active">Add teacher</b-nav-item>
@@ -23,6 +24,7 @@
     <b-nav-item v-if="isloggedin" to="/calc" exact exact-active-class="active">per year analysis</b-nav-item>
    
   </b-nav>
+ 
  </div>
   
   <!-- <div class="di">
@@ -59,6 +61,14 @@ Vue.use(VueAxios,axios)
 import {mapGetters} from 'vuex'
 export default {
   name: 'App',
+  data(){
+    return{
+    lastScrollPosition: 0,
+    cc:null,
+    positiondata : 'relative',
+    topdata : '5vh'
+    }
+  },
   methods:{
     logout(){
       this.$store.dispatch('isloggedin',false)
@@ -76,6 +86,23 @@ export default {
 
         });
     },
+  onScroll () {
+    // Get the current scroll position
+    const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop
+    // Because of momentum scrolling on mobiles, we shouldn't continue if it is less than zero
+    if (currentScrollPosition > 137) {
+      this.cc='now it should be fixed'
+      this.positiondata = 'fixed'
+      this.topdata = 0
+      return
+    }
+    else if(currentScrollPosition < 137){
+      this.cc=''
+      this.positiondata = 'relative'
+      this.topdata = '5vh'
+      return
+    }
+  }
   },
   computed:{
     ...mapGetters(['token']),
@@ -83,7 +110,13 @@ export default {
   },
   created(){
     this.logout()
-  }
+  },
+mounted(){
+  window.addEventListener('scroll', this.onScroll)
+},
+beforeDestroy () {
+  window.removeEventListener('scroll', this.onScroll)
+}
 }
   
 </script>
@@ -99,9 +132,11 @@ export default {
 }
  
 .di{
-  position: relative;
-  top: 5vh;
+  width: 100%
   
+}
+.width{
+  width: 100%
 }
 .imgsize{
   height: 50px;
@@ -111,6 +146,7 @@ export default {
   background-image: url("./assets/background.png");
   background-repeat: repeat-y;
   background-size: 100rem;
+  background-attachment: fixed;
   
 }
 
@@ -145,7 +181,8 @@ export default {
   color: black;
 }
 .navbg{
-  background-color: rgba(174, 174, 175, 0.493);
+  background-color: rgb(77, 109, 216);
+  z-index: 9999;
 }
 
 

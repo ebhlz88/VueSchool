@@ -2,7 +2,7 @@
 <div >
 <div>
     <b-form @submit.prevent="search" class="form-inline">
-    <b-select
+    <b-form-select
           split
           split-variant="outline-primary"
           variant="primary"
@@ -10,14 +10,14 @@
           class="m-2"
           v-model="selectedyear"
         >
-          <b-select-option disabled>Select year</b-select-option>
-          <b-select-option
+          <b-form-select-option disabled>Please select an Year</b-form-select-option>
+          <b-form-select-option
             v-for="items in year"
-            v-bind:key="items.year"
-            v-bind:value="items.year"
-            >{{ items.year }}</b-select-option
+            :key="items.year"
+            :value="items.year"
+            >{{ items.year }}</b-form-select-option
           >
-        </b-select>
+        </b-form-select>
         <b-button variant="primary" type="submit">search</b-button>
     </b-form>
     </div>
@@ -57,7 +57,7 @@ export default {
         return{
             year: null,
             monthssum : undefined,
-            selectedyear : null,
+            selectedyear : 0,
             teacherpayment : null,
             series: [
             {
